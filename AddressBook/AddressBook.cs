@@ -9,7 +9,7 @@ namespace AddressBook
     public class AddressBook
     {
         List<Person> persons = new List<Person>();
-        public List<Person> createser()
+        public List<Person> createuser()
         {
             bool anotheruser = true;
             try
@@ -58,7 +58,6 @@ namespace AddressBook
         {
             Console.WriteLine("Enter your first name");
             string fName = Console.ReadLine();
-            //var listOfPerson = createser();
             foreach (var obj in persons)
             {
                 if (fName.Equals(obj.FirstName))
@@ -76,7 +75,6 @@ namespace AddressBook
                             Console.WriteLine("Re-corect your address");
                             obj.Address = Console.ReadLine();
                             break;
-
                     }
                 }
             }
