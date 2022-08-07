@@ -56,27 +56,71 @@ namespace AddressBook
 
         public void EditPersonInfo()
         {
+            try { 
             Console.WriteLine("Enter your first name");
             string fName = Console.ReadLine();
-            foreach (var obj in persons)
-            {
-                if (fName.Equals(obj.FirstName))
+                foreach (var obj in persons)
                 {
-                    int input = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("choose field you want to edit");
-                    switch (input)
+                    if (fName.Equals(obj.FirstName))
                     {
-                        case 1:
-                            Console.WriteLine("Re-corect your last name");
-                            obj.LastName = Console.ReadLine();
-                            break;
-
-                        case 2:
-                            Console.WriteLine("Re-corect your address");
-                            obj.Address = Console.ReadLine();
-                            break;
+                        int input = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("choose field you want to edit");
+                        switch (input)
+                        {
+                            case 1:
+                                Console.WriteLine("Re-corect your First name");
+                                obj.FirstName = Console.ReadLine();
+                                break;
+                            case 2:
+                                Console.WriteLine("Re-corect your last name");
+                                obj.LastName = Console.ReadLine();
+                                break;
+                            case 3:
+                                Console.WriteLine("Re-corect your address");
+                                obj.Address = Console.ReadLine();
+                                break;
+                            case 4:
+                                Console.WriteLine("Re-corect your City Name");
+                                obj.City = Console.ReadLine();
+                                break;
+                            case 5:
+                                Console.WriteLine("Re-corect your State Name");
+                                obj.State = Console.ReadLine();
+                                break;
+                            case 6:
+                                Console.WriteLine("Re-corect your Zip Code");
+                                obj.Zip = Convert.ToInt32(Console.ReadLine());
+                                break;
+                            case 7:
+                                Console.WriteLine("Re-corect your Phone Number");
+                                obj.PhoneNumber = Convert.ToInt32(Console.ReadLine());
+                                break;
+                        }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Enter valid input");
+            }
+        }
+
+        public void DeletePerson()
+        {
+            try
+            {
+                Console.WriteLine("Enter your first name");
+                string fName = Console.ReadLine();
+                for (int i = persons.Count - 1; i >= 0; i--)
+                {
+                    if (persons[i].FirstName == fName)
+                        persons.Remove(persons[i]);
+                    Console.WriteLine("data removed successfully");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Enter valid input");
             }
         }
     }
