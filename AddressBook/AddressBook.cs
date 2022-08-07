@@ -8,9 +8,9 @@ namespace AddressBook
 {
     public class AddressBook
     {
+        List<Person> persons = new List<Person>();
         public List<Person> createser()
         {
-            List<Person> persons = new List<Person>();
             bool anotheruser = true;
             try
             {
@@ -34,10 +34,9 @@ namespace AddressBook
                     Console.WriteLine("Enter Phone Number ");
                     person.PhoneNumber = long.Parse(s: Console.ReadLine());
                     persons.Add(person);
-                    Console.WriteLine("Do you want to continue then press Y");
+                    Console.WriteLine("Do you want to add again? press y/n");
                     string next = Console.ReadLine();
-                    
-                   anotheruser = (next == "Y" || next== "Yes");
+                   anotheruser = (next == "Y" || next== "y");
                 }
             }
             catch (Exception e)
@@ -48,12 +47,39 @@ namespace AddressBook
         }
         public void Display()
         {
-            var listOfPerson = createser();
+            var listOfPerson = persons;
             foreach (var obj in listOfPerson)
             {
                 Console.WriteLine(obj.FirstName + " " + obj.LastName + "  " + obj.Address + " " + obj.City + " " + obj.State + " " + obj.Zip + " " + obj.PhoneNumber + " " + obj.Email);
             }
         }
 
+        public void EditPersonInfo()
+        {
+            Console.WriteLine("Enter your first name");
+            string fName = Console.ReadLine();
+            //var listOfPerson = createser();
+            foreach (var obj in persons)
+            {
+                if (fName.Equals(obj.FirstName))
+                {
+                    int input = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("choose field you want to edit");
+                    switch (input)
+                    {
+                        case 1:
+                            Console.WriteLine("Re-corect your last name");
+                            obj.LastName = Console.ReadLine();
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Re-corect your address");
+                            obj.Address = Console.ReadLine();
+                            break;
+
+                    }
+                }
+            }
+        }
     }
 }
