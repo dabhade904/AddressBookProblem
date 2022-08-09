@@ -8,6 +8,7 @@ namespace AddressBook
 {
     public class Person
     {
+        public string BookName { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Address { get; set; }
