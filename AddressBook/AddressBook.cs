@@ -32,11 +32,11 @@ namespace AddressBook
                     Console.WriteLine("Enter  Zip Code");
                     person.Zip = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Phone Number ");
-                    person.PhoneNumber = long.Parse(s: Console.ReadLine());
+                    person.PhoneNumber = long.Parse(Console.ReadLine());
                     persons.Add(person);
                     Console.WriteLine("Do you want to add again? press y/n");
                     string next = Console.ReadLine();
-                   anotheruser = (next == "Y" || next== "y");
+                    anotheruser = (next == "Y" || next == "y");
                 }
             }
             catch (Exception e)
@@ -56,9 +56,10 @@ namespace AddressBook
 
         public void EditPersonInfo()
         {
-            try { 
-            Console.WriteLine("Enter your first name");
-            string fName = Console.ReadLine();
+            try
+            {
+                Console.WriteLine("Enter your first name");
+                string fName = Console.ReadLine();
                 foreach (var obj in persons)
                 {
                     if (fName.Equals(obj.FirstName))
@@ -114,8 +115,14 @@ namespace AddressBook
                 for (int i = persons.Count - 1; i >= 0; i--)
                 {
                     if (persons[i].FirstName == fName)
+                    {
                         persons.Remove(persons[i]);
-                    Console.WriteLine("data removed successfully");
+                        Console.WriteLine("data removed successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong");
+                    }
                 }
             }
             catch (Exception e)
