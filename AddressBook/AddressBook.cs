@@ -8,15 +8,20 @@ namespace AddressBook
 {
     public class AddressBook
     {
+        Dictionary<string, Person> addresses = new Dictionary<string, Person>();
         List<Person> persons = new List<Person>();
-        public List<Person> createuser()
+        public Dictionary<string, Person> createuser()
         {
+
             bool anotheruser = true;
             try
             {
                 while (anotheruser)
                 {
                     var person = new Person();
+                    Console.WriteLine("Enter book name");
+                    //addresses.Add(person.BookName, person);
+                    person.BookName = Console.ReadLine();
                     Console.WriteLine("Enter first name");
                     person.FirstName = Console.ReadLine();
                     Console.WriteLine("Enter Last name");
@@ -33,27 +38,37 @@ namespace AddressBook
                     person.Zip = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Phone Number ");
                     person.PhoneNumber = long.Parse(Console.ReadLine());
-                    persons.Add(person);
+                    //persons.Add(person);
+                    addresses.Add(person.BookName, person);
                     Console.WriteLine("Do you want to add again? press y/n");
                     string next = Console.ReadLine();
                     anotheruser = (next == "Y" || next == "y");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Enter valid input");
             }
-            return persons;
+            return addresses;
         }
         public void Display()
         {
-            var listOfPerson = persons;
-            foreach (var obj in listOfPerson)
+            foreach (KeyValuePair<string, Person> dict in addresses)
             {
-                Console.WriteLine(obj.FirstName + " " + obj.LastName + "  " + obj.Address + " " + obj.City + " " + obj.State + " " + obj.Zip + " " + obj.PhoneNumber + " " + obj.Email);
+                Console.WriteLine("Address Book Name " + dict.Key);
+                foreach (var kvp in addresses.Values)
+                {
+                    Console.WriteLine("First Name: " + kvp.FirstName);
+                    Console.WriteLine("Last Name: " + kvp.LastName);
+                    Console.WriteLine("Address : " + kvp.Address);
+                    Console.WriteLine("City : " + kvp.City);
+                    Console.WriteLine("State : " + kvp.State);
+                    Console.WriteLine("Zip : " + kvp.Zip);
+                    Console.WriteLine("Phone Number: " + kvp.PhoneNumber);
+                }
+
             }
         }
-
         public void EditPersonInfo()
         {
             try
@@ -100,32 +115,28 @@ namespace AddressBook
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Enter valid input");
             }
         }
-
         public void DeletePerson()
         {
             try
             {
                 Console.WriteLine("Enter your first name");
                 string fName = Console.ReadLine();
-                for (int i = persons.Count - 1; i >= 0; i--)
+                if (persons.Count == 0)
                 {
-                    if (persons[i].FirstName == fName)
+                    for (int i = persons.Count - 1; i >= 0; i--)
                     {
                         persons.Remove(persons[i]);
                         Console.WriteLine("data removed successfully");
                     }
-                    else
-                    {
-                        Console.WriteLine("Something went wrong");
-                    }
+                    Console.WriteLine("Data is not available");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Enter valid input");
             }
