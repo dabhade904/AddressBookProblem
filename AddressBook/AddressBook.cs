@@ -9,10 +9,9 @@ namespace AddressBook
     public class AddressBook
     {
         Dictionary<string, Person> addresses = new Dictionary<string, Person>();
-        List<Person> persons = new List<Person>();
         public Dictionary<string, Person> createuser()
         {
-
+            string? next = string.Empty;
             bool anotheruser = true;
             try
             {
@@ -20,7 +19,6 @@ namespace AddressBook
                 {
                     var person = new Person();
                     Console.WriteLine("Enter book name");
-                    //addresses.Add(person.BookName, person);
                     person.BookName = Console.ReadLine();
                     Console.WriteLine("Enter first name");
                     person.FirstName = Console.ReadLine();
@@ -37,12 +35,14 @@ namespace AddressBook
                     Console.WriteLine("Enter  Zip Code");
                     person.Zip = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Phone Number ");
-                    person.PhoneNumber = long.Parse(Console.ReadLine());
-                    //persons.Add(person);
-                    addresses.Add(person.BookName, person);
-                    Console.WriteLine("Do you want to add again? press y/n");
-                    string next = Console.ReadLine();
-                    anotheruser = (next == "Y" || next == "y");
+                    person.PhoneNumber =Console.ReadLine();
+                    addresses.Add(person.FirstName, person);
+                    do
+                    {
+                        Console.WriteLine("Do you want to add again? press yes/no");
+                        next = Console.ReadLine();
+                    } while (next != "yes" && next != "no" && next != "Yes" && next != "No");
+                    anotheruser = (next == "Yes" || next == "yes");
                 }
             }
             catch (Exception)
@@ -51,68 +51,77 @@ namespace AddressBook
             }
             return addresses;
         }
+
+
         public void Display()
         {
-            foreach (KeyValuePair<string, Person> dict in addresses)
+            if (addresses.Count != 0)
             {
-                Console.WriteLine("Address Book Name " + dict.Key);
-                foreach (var kvp in addresses.Values)
+                foreach (KeyValuePair<string, Person> dict in addresses)
                 {
-                    Console.WriteLine("First Name: " + kvp.FirstName);
-                    Console.WriteLine("Last Name: " + kvp.LastName);
-                    Console.WriteLine("Address : " + kvp.Address);
-                    Console.WriteLine("City : " + kvp.City);
-                    Console.WriteLine("State : " + kvp.State);
-                    Console.WriteLine("Zip : " + kvp.Zip);
-                    Console.WriteLine("Phone Number: " + kvp.PhoneNumber);
+                    Console.WriteLine("Address Book Name " + dict.Key);
+                    Person person = dict.Value;
+                    Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
+                        person.FirstName, person.LastName, person.Address, person.City, person.State, person.Zip, person.PhoneNumber);
                 }
-
             }
+            else
+            {
+                Console.WriteLine("Dictionary is empty");
+            }
+
         }
         public void EditPersonInfo()
         {
             try
             {
                 Console.WriteLine("Enter your first name");
-                string fName = Console.ReadLine();
-                foreach (var obj in persons)
+                string? fName = Console.ReadLine();
+                if (fName != null)
                 {
-                    if (fName.Equals(obj.FirstName))
+                    foreach (KeyValuePair<string, Person> obj in addresses)
                     {
-                        int input = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("choose field you want to edit");
-                        switch (input)
+                        if (fName.Equals(obj.Value.FirstName))
                         {
-                            case 1:
-                                Console.WriteLine("Re-corect your First name");
-                                obj.FirstName = Console.ReadLine();
-                                break;
-                            case 2:
-                                Console.WriteLine("Re-corect your last name");
-                                obj.LastName = Console.ReadLine();
-                                break;
-                            case 3:
-                                Console.WriteLine("Re-corect your address");
-                                obj.Address = Console.ReadLine();
-                                break;
-                            case 4:
-                                Console.WriteLine("Re-corect your City Name");
-                                obj.City = Console.ReadLine();
-                                break;
-                            case 5:
-                                Console.WriteLine("Re-corect your State Name");
-                                obj.State = Console.ReadLine();
-                                break;
-                            case 6:
-                                Console.WriteLine("Re-corect your Zip Code");
-                                obj.Zip = Convert.ToInt32(Console.ReadLine());
-                                break;
-                            case 7:
-                                Console.WriteLine("Re-corect your Phone Number");
-                                obj.PhoneNumber = Convert.ToInt32(Console.ReadLine());
-                                break;
+                            Console.WriteLine("choose field you want to edit");
+                            int input = Convert.ToInt32(Console.ReadLine());
+                            switch (input)
+                            {
+                                case 1:
+                                    Console.WriteLine("Re-corect your First name");
+                                    obj.Value.FirstName = Console.ReadLine();
+                                    break;
+                                case 2:
+                                    Console.WriteLine("Re-corect your last name");
+                                    obj.Value.LastName = Console.ReadLine();
+                                    break;
+                                case 3:
+                                    Console.WriteLine("Re-corect your address");
+                                    obj.Value.Address = Console.ReadLine();
+                                    break;
+                                case 4:
+                                    Console.WriteLine("Re-corect your City Name");
+                                    obj.Value.City = Console.ReadLine();
+                                    break;
+                                case 5:
+                                    Console.WriteLine("Re-corect your State Name");
+                                    obj.Value.State = Console.ReadLine();
+                                    break;
+                                case 6:
+                                    Console.WriteLine("Re-corect your Zip Code");
+                                    obj.Value.Zip = Convert.ToInt32(Console.ReadLine());
+                                    break;
+                                case 7:
+                                    Console.WriteLine("Re-corect your Phone Number");
+                                    obj.Value.PhoneNumber =Console.ReadLine();
+                                    break;
+                            }
                         }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Please enter Person name");
                 }
             }
             catch (Exception)
@@ -124,21 +133,59 @@ namespace AddressBook
         {
             try
             {
-                Console.WriteLine("Enter your first name");
-                string fName = Console.ReadLine();
-                if (persons.Count == 0)
+                if (addresses.Count > 0)
                 {
-                    for (int i = persons.Count - 1; i >= 0; i--)
+                    Console.WriteLine("Enter your first name");
+                    string? fName = Console.ReadLine();
+                    if (fName != null)
                     {
-                        persons.Remove(persons[i]);
-                        Console.WriteLine("data removed successfully");
+                        foreach (KeyValuePair<string, Person> obj in addresses)
+                        {
+                            if (fName.Equals(obj.Key))
+                            {
+                                addresses.Remove(obj.Key);
+                                Console.WriteLine("data removed successfully");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Data is not available");
+                            }
+                        }
                     }
-                    Console.WriteLine("Data is not available");
+                    else
+                    {
+                        Console.WriteLine("Please enter any name");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Dictionary is empty");
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Enter valid input");
+            }
+        }
+
+        public void SearchPerson()
+        {
+            Console.WriteLine("Enter person you want to search");
+            string? person = Console.ReadLine();
+            if (person != null)
+            {
+                var search = addresses.Where(p => p.Value.FirstName.Contains(person));
+                foreach (KeyValuePair<string, Person> dict in search)
+                {
+                    Console.WriteLine("Address Book Name " + dict.Key);
+                    Person personResult = dict.Value;
+                    Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
+                        personResult.FirstName, personResult.LastName, personResult.Address, personResult.City, personResult.State, personResult.Zip, personResult.PhoneNumber);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter person name");
             }
         }
     }
