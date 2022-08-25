@@ -12,7 +12,7 @@
                 switch (input)
                 {
                     case 1:
-                        obj.createuser();
+                        obj.Createuser();
                         break;
                     case 2:
                         obj.Display();
