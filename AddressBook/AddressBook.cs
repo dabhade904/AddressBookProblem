@@ -198,5 +198,30 @@ namespace AddressBook
                 Console.WriteLine("Enter valid input");
             }
         }
+        public void SearchPerson()
+        {
+            Console.WriteLine("Enter person you want to search");
+            string? person = Console.ReadLine();
+            if (person != null)
+            {
+                foreach (KeyValuePair<string, List<Person>> kvp in addresses)
+                {
+                    foreach (var persons in kvp.Value)
+                    {
+                        var search = addresses.Where(p => persons.FirstName.Contains(person));
+                        foreach (KeyValuePair<string, List<Person>> dict in search)
+                        {
+                            Console.WriteLine("Address Book Name " + dict.Key);
+                            Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
+                                persons.FirstName, persons.LastName, persons.Address, persons.City, persons.State, persons.Zip, persons.PhoneNumber);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter person name");
+            }
+        }
     }
 }
