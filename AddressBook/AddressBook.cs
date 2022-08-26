@@ -81,10 +81,9 @@ namespace AddressBook
                 foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                 {
                     Console.WriteLine("Key = {0}", kvp.Key);
-                    foreach (var person in kvp.Value)
+                    foreach (var items in kvp.Value)
                     {
-                        Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
-                        person.FirstName, person.LastName, person.Address, person.City, person.State, person.Zip, person.PhoneNumber);
+                        Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Email ID: {items.Email}, Phone Number: {items.PhoneNumber}, City: {items.City},Address: {items.Address} , City{items.City},State {items.State}");
                     }
                 }
             }
@@ -204,14 +203,13 @@ namespace AddressBook
                 foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                 {
                     Console.WriteLine("Name of Address Book : " + kvp.Key);
-                    foreach (var persons in kvp.Value)
+                    foreach (var items in kvp.Value)
                     {
-                        var search = addressDictionary.Where(p => persons.FirstName.Contains(person));
+                        var search = addressDictionary.Where(p => items.FirstName.Contains(person));
                         foreach (KeyValuePair<string, List<Person>> dict in search)
                         {
                             Console.WriteLine("Address Book Name " + dict.Key);
-                            Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
-                                persons.FirstName, persons.LastName, persons.Address, persons.City, persons.State, persons.Zip, persons.PhoneNumber);
+                            Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Email ID: {items.Email}, Phone Number: {items.PhoneNumber}, City: {items.City},Address: {items.Address} , City{items.City},State {items.State}");
                         }
                     }
                 }
@@ -232,12 +230,11 @@ namespace AddressBook
                 foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                 {
                     Console.WriteLine("Name of Address Book : " + kvp.Key);
-                    foreach (var personObj in kvp.Value)
+                    foreach (var items in kvp.Value)
                     {
-                        if(personObj.City.Equals(cityOrState) || personObj.State.Equals(cityOrState))
+                        if (items.City.Equals(cityOrState) || items.State.Equals(cityOrState))
                         {
-                            Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
-                                personObj.FirstName, personObj.LastName, personObj.Address, personObj.City, personObj.State, personObj.Zip, personObj.PhoneNumber);
+                            Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Email ID: {items.Email}, Phone Number: {items.PhoneNumber}, City: {items.City},Address: {items.Address} , City{items.City},State {items.State}");
                         }
                     }
                 }
@@ -245,6 +242,25 @@ namespace AddressBook
             else
             {
                 Console.WriteLine("Enter the city or state");
+            }
+        }
+
+        public void GetNumberOfPerson()
+        {
+            Console.WriteLine("Enter city or state to search person");
+            string? cityOrState = Console.ReadLine();
+            int count = 0;
+            foreach (KeyValuePair<string, List<Person>> item in addressDictionary)
+            {
+                Console.WriteLine("Name of AddressBook: " + item.Key);
+                foreach (Person items in item.Value)
+                {
+                    if (items.City.Contains(cityOrState) || items.State.Contains(cityOrState))
+                    {
+                        count++;
+                        Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Email ID: {items.Email}, Phone Number: {items.PhoneNumber}, City: {items.City},Address: {items.Address} , City{items.City},State {items.State}");
+                    }
+                }
             }
         }
     }
