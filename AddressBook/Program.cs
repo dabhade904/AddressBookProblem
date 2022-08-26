@@ -7,7 +7,7 @@
             AddressBook obj = new AddressBook();
             while (true)
             {
-                Console.WriteLine("Enter number: \n 1. create new person \n 2. Display Data \n 3. Edit person Data \n 4. Delete Person Data \n 5. Search Person \n 6. Exit");
+                Console.WriteLine("Enter number: \n 1. create new person \n 2. Display Data \n 3. Edit person Data \n 4. Delete Person Data \n 5. Search Person \n 6. Enter city or state to search person \n 7. Exit");
                 int input = Convert.ToInt32(Console.ReadLine());
                 switch (input)
                 {
@@ -27,6 +27,9 @@
                         obj.SearchPerson();
                         break;
                     case 6:
+                        obj.SearchPersonBasedOnCityAndState();
+                        break;
+                    case 7:
                         Environment.Exit(0);
                         break;
                 }

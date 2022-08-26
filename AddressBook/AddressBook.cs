@@ -9,7 +9,7 @@ namespace AddressBook
 {
     public class AddressBook
     {
-        Dictionary<string, List<Person>> addresses = new Dictionary<string, List<Person>>();
+        Dictionary<string, List<Person>> addressDictionary = new Dictionary<string, List<Person>>();
         public Dictionary<string, List<Person>> Createuser()
         {
             List<Person> personList = new List<Person>();
@@ -18,37 +18,34 @@ namespace AddressBook
             try
             {
                 Console.WriteLine("Enter the country you want to add address");
-                var country = Console.ReadLine();
+                var addressBook = Console.ReadLine();
 
                 while (anotheruser)
                 {
-                    var person = new Person();
-
-                    Console.WriteLine("Enter book name");
-                    person.BookName = Console.ReadLine();
+                    var personNewObj = new Person();
                     Console.WriteLine("Enter first name");
-                    person.FirstName = Console.ReadLine();
+                    personNewObj.FirstName = Console.ReadLine();
                     Console.WriteLine("Enter Last name");
-                    person.LastName = Console.ReadLine();
+                    personNewObj.LastName = Console.ReadLine();
                     Console.WriteLine("Enter Address");
-                    person.Address = Console.ReadLine();
+                    personNewObj.Address = Console.ReadLine();
                     Console.WriteLine("Enter City");
-                    person.City = Console.ReadLine();
+                    personNewObj.City = Console.ReadLine();
                     Console.WriteLine("Enter State");
-                    person.State = Console.ReadLine();
+                    personNewObj.State = Console.ReadLine();
                     Console.WriteLine("Enter Email");
-                    person.Email = Console.ReadLine();
+                    personNewObj.Email = Console.ReadLine();
                     Console.WriteLine("Enter  Zip Code");
-                    person.Zip = Convert.ToInt32(Console.ReadLine());
+                    personNewObj.Zip = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Enter Phone Number ");
-                    person.PhoneNumber = Console.ReadLine();
+                    personNewObj.PhoneNumber = Console.ReadLine();
                     if (personList.Count == 0)
                     {
-                        personList.Add(person);
+                        personList.Add(personNewObj);
                     }
                     else
                     {
-                        personList = AddDistinctPersonInList(personList, person);
+                        personList = AddDistinctPersonInList(personList, personNewObj);
                     }
                     do
                     {
@@ -57,13 +54,13 @@ namespace AddressBook
                     } while (next != "yes" && next != "no" && next != "Yes" && next != "No");
                     anotheruser = (next == "Yes" || next == "yes");
                 }
-                addresses.Add(country, personList);
+                addressDictionary.Add(addressBook, personList);
             }
             catch (Exception)
             {
                 Console.WriteLine("Enter valid input");
             }
-            return addresses;
+            return addressDictionary;
         }
         public List<Person> AddDistinctPersonInList(List<Person> list, Person person)
         {
@@ -79,9 +76,9 @@ namespace AddressBook
         }
         public void Display()
         {
-            if (addresses.Count != 0)
+            if (addressDictionary.Count != 0)
             {
-                foreach (KeyValuePair<string, List<Person>> kvp in addresses)
+                foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                 {
                     Console.WriteLine("Key = {0}", kvp.Key);
                     foreach (var person in kvp.Value)
@@ -104,7 +101,7 @@ namespace AddressBook
                 string? fName = Console.ReadLine();
                 if (fName != null)
                 {
-                    foreach (KeyValuePair<string, List<Person>> kvp in addresses)
+                    foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                     {
                         foreach (var person in kvp.Value)
                         {
@@ -161,19 +158,19 @@ namespace AddressBook
         {
             try
             {
-                if (addresses.Count > 0)
+                if (addressDictionary.Count > 0)
                 {
                     Console.WriteLine("Enter your first name");
                     string? fName = Console.ReadLine();
                     if (fName != null)
                     {
-                        foreach (KeyValuePair<string, List<Person>> kvp in addresses)
+                        foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                         {
                             foreach (var person in kvp.Value)
                             {
                                 if (fName.Equals(person.FirstName))
                                 {
-                                    addresses.Remove(kvp.Key);
+                                    addressDictionary.Remove(kvp.Key);
                                     Console.WriteLine("data removed successfully");
                                 }
                                 else
@@ -204,11 +201,12 @@ namespace AddressBook
             string? person = Console.ReadLine();
             if (person != null)
             {
-                foreach (KeyValuePair<string, List<Person>> kvp in addresses)
+                foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
                 {
+                    Console.WriteLine("Name of Address Book : " + kvp.Key);
                     foreach (var persons in kvp.Value)
                     {
-                        var search = addresses.Where(p => persons.FirstName.Contains(person));
+                        var search = addressDictionary.Where(p => persons.FirstName.Contains(person));
                         foreach (KeyValuePair<string, List<Person>> dict in search)
                         {
                             Console.WriteLine("Address Book Name " + dict.Key);
@@ -221,6 +219,32 @@ namespace AddressBook
             else
             {
                 Console.WriteLine("Please enter person name");
+            }
+        }
+
+        public void SearchPersonBasedOnCityAndState()
+        {
+            Console.WriteLine("Enter city or state to search person");
+            string? cityOrState = Console.ReadLine();
+            int cnt = 0;
+            if (cityOrState != null)
+            {
+                foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
+                {
+                    Console.WriteLine("Name of Address Book : " + kvp.Key);
+                    foreach (var personObj in kvp.Value)
+                    {
+                        if(personObj.City.Equals(cityOrState) || personObj.State.Equals(cityOrState))
+                        {
+                            Console.WriteLine("First Name : {0} , Last Name : {1} , Address : {2} , City : {3} , State : {4} , Zip : {5} , Phone Number : {6} ",
+                                personObj.FirstName, personObj.LastName, personObj.Address, personObj.City, personObj.State, personObj.Zip, personObj.PhoneNumber);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Enter the city or state");
             }
         }
     }
