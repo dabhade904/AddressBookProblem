@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -262,6 +263,27 @@ namespace AddressBook
                     }
                 }
             }
+        }
+        public void Sorts()
+        {
+            foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
+            {
+                foreach (var p in kvp.Key)
+                {
+                    var sortItem = from data in addressDictionary
+                                   orderby data.Value ascending
+                                   select data;
+                    foreach (KeyValuePair<string, List<Person>> kvpList in sortItem)
+                    {
+                        Console.WriteLine("Address Key : " + kvpList.Key);
+                        foreach (var list in kvpList.Value)
+                        {
+                            Console.WriteLine("Person : " + list.FirstName);
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

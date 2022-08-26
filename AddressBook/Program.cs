@@ -32,6 +32,9 @@
                     case 7:
                         obj.GetNumberOfPerson();
                         break;
+                    case 8:
+                        obj.Sorts();
+                        break;
                     case 0:
                         Environment.Exit(0);
                         break;
