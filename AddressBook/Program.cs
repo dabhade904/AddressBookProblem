@@ -33,7 +33,7 @@
                         obj.GetNumberOfPerson();
                         break;
                     case 8:
-                        obj.Sorts();
+                        obj.SortingByPersonName();
                         break;
                     case 0:
                         Environment.Exit(0);

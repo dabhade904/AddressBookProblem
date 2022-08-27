@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -11,9 +13,10 @@ namespace AddressBook
     public class AddressBook
     {
         Dictionary<string, List<Person>> addressDictionary = new Dictionary<string, List<Person>>();
+        List<Person> personList = new List<Person>();
         public Dictionary<string, List<Person>> Createuser()
         {
-            List<Person> personList = new List<Person>();
+
             string? next = string.Empty;
             bool anotheruser = true;
             try
@@ -245,7 +248,6 @@ namespace AddressBook
                 Console.WriteLine("Enter the city or state");
             }
         }
-
         public void GetNumberOfPerson()
         {
             Console.WriteLine("Enter city or state to search person");
@@ -264,26 +266,20 @@ namespace AddressBook
                 }
             }
         }
-        public void Sorts()
+        public void SortingByPersonName()
         {
-            foreach (KeyValuePair<string, List<Person>> kvp in addressDictionary)
+            if (addressDictionary.Count > 0)
             {
-                foreach (var p in kvp.Key)
+                foreach (var data in personList.OrderBy(x => x.FirstName).ToList())
                 {
-                    var sortItem = from data in addressDictionary
-                                   orderby data.Value ascending
-                                   select data;
-                    foreach (KeyValuePair<string, List<Person>> kvpList in sortItem)
+                    if (personList.Contains(data))
                     {
-                        Console.WriteLine("Address Key : " + kvpList.Key);
-                        foreach (var list in kvpList.Value)
-                        {
-                            Console.WriteLine("Person : " + list.FirstName);
-                        }
+                        Console.WriteLine("The Contact Details of " + data.FirstName + " " + data.LastName + " " + data.Address + " " + data.City + " " + data.State + " " + data.Zip + " " + data.PhoneNumber + " " + data.Email);
                     }
+                    else
+                        Console.WriteLine("contact does not exists");
                 }
             }
-
         }
     }
 }
