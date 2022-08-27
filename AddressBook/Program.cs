@@ -35,6 +35,9 @@
                     case 8:
                         obj.SortingByPersonName();
                         break;
+                    case 9:
+                        obj.SortingByPersonCityStateOrZip();
+                        break;
                     case 0:
                         Environment.Exit(0);
                         break;

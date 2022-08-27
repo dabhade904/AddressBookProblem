@@ -281,5 +281,23 @@ namespace AddressBook
                 }
             }
         }
+
+        public void SortingByPersonCityStateOrZip()
+        {
+            if (addressDictionary.Count > 0)
+            {
+                foreach (var data in personList.OrderBy(x => x.City).ToList())
+                {
+                    if (personList.Contains(data))
+                    {
+                        Console.WriteLine("The Contact Details of " + data.FirstName + " " + data.LastName + " " + data.Address + " " + data.City + " " + data.State + " " + data.Zip + " " + data.PhoneNumber + " " + data.Email);
+                    }
+                    else
+                    {
+                        Console.WriteLine("contact does not exists");
+                    }
+                }
+            }
+        }
     }
 }
