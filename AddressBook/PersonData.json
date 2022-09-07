@@ -1,0 +1,26 @@
+{
+  "typeOfPerson": [
+    {
+
+      "FirstName": "sachin",
+      "LastName": "dabhade",
+      "Address": "shekta",
+      "City": "Aurangabad",
+      "State": "Mh",
+      "Email": "Maharastra",
+      "PhoneNumber": "8888938943",
+      "Zip": 431105
+    },
+    {
+      "FirstName": "dabhade",
+      "LastName": "sachin",
+      "Address": "shekta",
+      "City": "Aurangabad",
+      "State": "Mh",
+      "Email": "Maharastra",
+      "PhoneNumber": "8888938943",
+      "Zip": 431105
+    }
+
+  ]
+}

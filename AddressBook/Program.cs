@@ -69,6 +69,26 @@
                         break;
                 }
             }
+            else if (userInpute == 3)
+            {
+                ReadAndWriteJson obj = new ReadAndWriteJson();
+                string filePath = "C:\\Users\\kamlesh\\Desktop\\dotNet\\AddressBookProblem\\AddressBook\\PersonData.json";
+                Contact data = obj.Read(filePath);
+                // Console.WriteLine(data);
+                for (int i = 0; i < data.typeOfPerson.Count; i++)
+                {
+                    Console.WriteLine(data.typeOfPerson[i].FirstName);
+                    Console.WriteLine(data.typeOfPerson[i].LastName);
+                    Console.WriteLine(data.typeOfPerson[i].Address);
+                    Console.WriteLine(data.typeOfPerson[i].Address);
+                    Console.WriteLine(data.typeOfPerson[i].City);
+                    Console.WriteLine(data.typeOfPerson[i].State);
+                    Console.WriteLine(data.typeOfPerson[i].Email);
+                    Console.WriteLine(data.typeOfPerson[i].PhoneNumber);
+                    Console.WriteLine(data.typeOfPerson[i].Zip);
+                    Console.WriteLine("------------------------");
+                }
+            }
         }
     }
 }
