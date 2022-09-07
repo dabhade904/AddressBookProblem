@@ -74,7 +74,6 @@
                 ReadAndWriteJson obj = new ReadAndWriteJson();
                 string filePath = "C:\\Users\\kamlesh\\Desktop\\dotNet\\AddressBookProblem\\AddressBook\\PersonData.json";
                 Contact data = obj.Read(filePath);
-                // Console.WriteLine(data);
                 for (int i = 0; i < data.typeOfPerson.Count; i++)
                 {
                     Console.WriteLine(data.typeOfPerson[i].FirstName);
