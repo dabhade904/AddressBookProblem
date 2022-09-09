@@ -8,10 +8,10 @@ namespace AddressBookTest
         [TestMethod]
         public void TestMethod1()
         {
-            FetchAddressBookDb da = new FetchAddressBookDb();
-            string actualString = da.;
+          /*  FetchAddressBookDb data = new FetchAddressBookDb();
+            string actualString = dat;
             string expectedString = System.Configuration.ConfigurationManager.ConnectionStrings[“AddressBook”].ConnectionString;
-            Assert.AreEqual(expectedString, actualString);
+            Assert.AreEqual(expectedString, actualString);*/
         }
     }
 }

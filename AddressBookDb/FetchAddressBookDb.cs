@@ -12,12 +12,13 @@ namespace AddressBookDb
     {
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=AddressBook;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
-
+        AddressDataModel dataModel = new AddressDataModel();
+       
         public void GetAllEmployee()
         {
             try
-            {
-                AddressDataModel dataModel = new AddressDataModel();
+
+            {            
                 using (this.connection)
                 {
                     string query = @"SELECT FirstName,LastName,Address,City,State,Zip,PhoneNumber,Email,TypeOf from address_book;";
@@ -59,7 +60,42 @@ namespace AddressBookDb
                 this.connection.Close();
             }
         }
-
+        public bool AddDataToTable(AddressDataModel addressDataModel)
+        {
+            try
+            {
+                using (connection) 
+                {
+                    SqlCommand command = new SqlCommand("dbo.SpStoreProcedure", this.connection); 
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", addressDataModel.FirstName);
+                    command.Parameters.AddWithValue("@LastName", addressDataModel.LastName);
+                    command.Parameters.AddWithValue("@Address", addressDataModel.Address);
+                    command.Parameters.AddWithValue("@City", addressDataModel.City);
+                    command.Parameters.AddWithValue("@State", addressDataModel.State);
+                    command.Parameters.AddWithValue("@Zip", addressDataModel.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", addressDataModel.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", addressDataModel.Email);
+                    command.Parameters.AddWithValue("@TypeOf", addressDataModel.TypeOf);
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
 
